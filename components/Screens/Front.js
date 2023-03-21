@@ -4,8 +4,10 @@ import { styles } from "../../styles/mainCss";
 export default function Front({navigation}) {
 
   const loginPress = ()=>{
-    console.log("Clicked");
     navigation.navigate('Login');
+}
+  const signupPress = ()=>{
+    navigation.navigate('Signup');
 }
 
   return (
@@ -19,7 +21,7 @@ export default function Front({navigation}) {
                 <TouchableOpacity onPress={loginPress} style={[styles.Btn , {backgroundColor: '#F44648'}]}>
                     <Text style={{color: 'white', textAlign: 'center' , fontSize: 18, fontWeight: 'bold'}}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.Btn , {borderColor: 'white' , borderWidth: 1}]}>
+                <TouchableOpacity  onPress={signupPress} style={[styles.Btn , {borderColor: 'white' , borderWidth: 1}]}>
                     <Text style={{color: 'white', textAlign: 'center' , fontSize: 18, fontWeight: 'bold'}}>Signup</Text>
                 </TouchableOpacity>
             </View>
