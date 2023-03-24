@@ -1,21 +1,23 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function PostApiHook(url) {
+export default function PostApiHook(url , data) {
 
-    const [data, setData] = useState([]);
+    const {name , email , password} = data;
     
-    useEffect(() => {
-      axios.get(url)
+    const postData = async ()=>{
+      await axios.post(url , {
+        email: email ,
+        name: name ,
+        password: password
+      })
       .then((res)=>{
-          setData(res.data)
+          console.log(res);
       }).catch((error)=>{
           console.log(error);
       })
-    }, [])
-    
-
+    }
   return (
-    {data}
+    {postData}
   )
 }
