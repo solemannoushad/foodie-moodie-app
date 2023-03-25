@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         
         elevation: 5,
+        zIndex: 9999999
     },
     menuIcon: {
         flex: 0.25,
@@ -57,7 +58,8 @@ const styles = StyleSheet.create({
     },
     homeScrollMain: {
         marginTop: 30,
-        marginHorizontal: 17
+        marginHorizontal: 17,
+        flex: 0.8
     },
     flatListHeader: {
         flexDirection: 'row',
@@ -99,6 +101,17 @@ const styles = StyleSheet.create({
     },
     bestSellerCard: {
         alignItems: 'center',
+    },
+    detailsHeader: {
+        flex: 0.1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    detailsImage: {
+        flex: 0.3,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
   });
 

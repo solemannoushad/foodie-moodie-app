@@ -12,7 +12,11 @@ import { styles } from "../../styles/mainCss";
 import Menu from "./Menu";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export default function Home() {
+export default function Home({navigation}) {
+
+  const detailsClick = (item)=>{
+    navigation.navigate("Details" , {item});
+  }
 
   const likeClicked = (item)=>{
     item.isLiked = false;
@@ -46,7 +50,7 @@ export default function Home() {
       rating: '4,4',
       isLiked: false,
       image:
-        "https://thumbs.dreamstime.com/b/big-burger-hamburger-cheeseburger-close-up-isolated-white-background-75079581.jpg",
+        "https://www.transparentpng.com/thumb/burger/vegan-burger-png-clipart-HbNiDU.png",
     },
     {
       key: 1,
@@ -55,7 +59,7 @@ export default function Home() {
       rating: '4,0',
       isLiked: true,
       image:
-        "https://thumbs.dreamstime.com/b/veggie-burger-isolated-white-background-healthy-black-bean-veggie-burger-white-background-work-path-included-171567596.jpg",
+        "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-Transparent-Background.png",
     },
     {
       key: 2,
@@ -64,7 +68,7 @@ export default function Home() {
       rating: '3,4',
       isLiked: true,
       image:
-        "https://media.istockphoto.com/id/1141364254/photo/healthy-vegan-burger-with-grilled-tofu-cheese-and-vegetables-on-white-background.webp?s=1024x1024&w=is&k=20&c=KlM990iyHIrEdJj4zV3eAeSy5XiNvtFY7lTAYoBYmZ4=",
+        "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-Transparent-PNG.png",
     },
     {
       key: 3,
@@ -73,7 +77,7 @@ export default function Home() {
       rating: '5,0',
       isLiked: false,
       image:
-        "https://www.shutterstock.com/image-photo/burger-on-white-260nw-269438906.jpg",
+        "https://www.transparentpng.com/thumb/burger/what-are-the-fast-food-burger-damages-png-free-2Fy2Lh.png",
     },
   ]);
 
@@ -161,12 +165,12 @@ export default function Home() {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
-              <View style={styles.popularMain}>
+              <TouchableOpacity onPress={()=>detailsClick(item)} style={styles.popularMain}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flexDirection: "row", flex: 0.5 }}>
                     <Text style={{ marginRight: 5 }}>{item.rating}</Text>
                     <View>
-                      <Icon name="star" size={18} color="orange" regular />
+                      <Icon name="star-o" size={18} color="orange" regular />
                     </View>
                   </View>
                   <View style={{ flex: 0.5 }}>
@@ -191,7 +195,7 @@ export default function Home() {
                   </Text>
                   <Text style={{ textAlign: "center" }}>{item.price}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </View>
@@ -210,7 +214,36 @@ export default function Home() {
           </View>
         </View>
         <View style={styles.bestSellerCard}>
-          <FlatList
+{          popular.map((item)=>
+            <View key={item.key} style={styles.bestMain}>
+            <View style={{flex: 0.4}}>
+              <Image
+                style={{ width: 90, height: 90 }}
+                source={{ uri: item.image }}
+              />
+            </View>
+            <View
+              style={{ justifyContent: "center", flex: 0.4 }}
+            >
+              <Text style={{ textAlign: "left", fontWeight: "bold" }}>
+                {item.title}
+              </Text>
+              <Text style={{ textAlign: "left" }}>{item.price}</Text>
+            </View>
+            <View style={{ justifyContent: "center" , alignItems: 'center' , flex: 0.2 }}>
+              <View>
+              <Icon name="heart" size={16} color={item.isLiked? "red" : "#D3D3D3"} />
+              </View>
+              <View style={{ flexDirection: "row" , marginVertical: 6 }}>
+                <View>
+                  <Icon name="star-o" size={18} color="orange" />
+                </View>
+                <Text style={{ textAlign: "right", marginLeft: 5 }}>{item.rating}</Text>
+              </View>
+            </View>
+          </View>
+          )}
+          {/* <FlatList
             data={popular}
             keyExtractor={(item) => item.key}
             horizontal={false}
@@ -237,17 +270,17 @@ export default function Home() {
                   </View>
                   <View style={{ flexDirection: "row" , marginVertical: 6 }}>
                     <View>
-                      <Icon name="star" size={18} color="orange" />
+                      <Icon name="star-o" size={18} color="orange" />
                     </View>
                     <Text style={{ textAlign: "right", marginLeft: 5 }}>{item.rating}</Text>
                   </View>
                 </View>
               </View>
             )}
-          />
+          /> */}
         </View>
       </ScrollView>
-      <View style={{ flex: 0.2 }}>
+      <View style={{ flex: 0.1 }}>
         <Menu />
       </View>
     </View>

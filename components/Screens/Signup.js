@@ -6,29 +6,19 @@ import PostApiHook from "../Hooks/PostApiHook";
 
 export default function Signup({navigation}) {
 
+  const [name , setName] = useState("");
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  
+  
   const signupPress = ()=>{
     const data = {
       name , email , password
     }
     console.log(data);
     const {postData} = PostApiHook("urlHere" , data);
-    postData()
+    postData();
   }
-
-  // const [data, setData] = useState([]);
-    
-  // useEffect(() => {
-  //   axios.get("http://localhost:3000/api/categories/fetchcategories")
-  //   .then((res)=>{
-  //       setData(res.data)
-  //   }).catch((error)=>{
-  //       console.log(error);
-  //   })
-  // }, [])
 
   const {data , setData ,  fetchData} = GetApiHook("https://reactnative.dev/movies.json");
 
@@ -36,8 +26,6 @@ export default function Signup({navigation}) {
     fetchData();
     setData(data);
   } , [])
-
-  
 
   return (
     <View style={styles.container}>
@@ -48,11 +36,11 @@ export default function Signup({navigation}) {
       </View>
       <View style={{ flex: 0.9, marginHorizontal: 20, marginTop: 20}}>
         <Text style={styles.textLabel}>Email</Text>
-        <TextInput style={styles.inputField} placeholder="E-mail" value={email} onChange={(email)=>setEmail(email)} />
+        <TextInput style={styles.inputField} placeholder="E-mail" value={email} onChangeText={(email)=>setEmail(email)}/>
         <Text style={styles.textLabel}>Full Name</Text>
-        <TextInput style={styles.inputField} placeholder="Full Name" value={name} onChange={(name)=> setName(name)} />
+        <TextInput style={styles.inputField} placeholder="Full Name" value={name} onChangeText={(name)=>setName(name)}/>
         <Text style={styles.textLabel}>Password</Text>
-        <TextInput style={styles.inputField} placeholder="Create Password" value={password} onChange={(password)=>setPassword(password)} />
+        <TextInput style={styles.inputField} placeholder="Create Password" value={password} onChangeText={(password)=>setPassword(password)} />
         <Text style={styles.textLabel}>Confirm Password</Text>
         <TextInput style={styles.inputField} placeholder="Confirm Password" />
         <Text style={{color: "black", fontSize: 14, marginHorizontal: 20 }}>
