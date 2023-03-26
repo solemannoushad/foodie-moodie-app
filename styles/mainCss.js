@@ -112,6 +112,28 @@ const styles = StyleSheet.create({
         flex: 0.3,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    qtyMain: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#A9A9A9',
+        padding: 6,
+        borderRadius: 16,
+        width: 80,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    productsMain: {
+        flex: 0.9,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+    productCard: {
+        backgroundColor: 'white',
+        margin: 10,
+        padding: 15,
+        alignItems: 'center'
     }
   });
 

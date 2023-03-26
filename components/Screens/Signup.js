@@ -3,12 +3,18 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../../styles/mainCss";
 import GetApiHook from '../Hooks/GetApiHook';
 import PostApiHook from "../Hooks/PostApiHook";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 export default function Signup({navigation}) {
 
   const [name , setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const backClick = ()=>{
+    navigation.goBack();
+}
   
   
   const signupPress = ()=>{
@@ -29,8 +35,11 @@ export default function Signup({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 0.1, marginTop: 30, marginHorizontal: 30 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 10 }}>
+      <View style={{ flex: 0.1, marginTop: 30, marginHorizontal: 30, flexDirection: 'row' , alignItems: 'center', }}>
+        <TouchableOpacity onPress={backClick}>
+          <Icon name="angle-left" size={34} color={"black"} />
+        </TouchableOpacity>
+        <Text style={{ fontWeight: "bold", fontSize: 25, marginLeft: 10 }}>
           Signup
         </Text>
       </View>
