@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { ScrollView, Text, TextInput, TouchableOpacity, FlatList} from "react-native";
 import { Image } from "react-native";
 import { View } from "react-native";
 import { styles } from "../../styles/mainCss";
@@ -63,7 +57,7 @@ export default function Home({navigation}) {
       rating: '4,4',
       isLiked: false,
       image:
-      "https://www.pngmart.com/files/1/Shack-Burger-PNG.png",
+      "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-PNG-Clipart.png",
     },
     {
       key: 1,
@@ -101,7 +95,7 @@ export default function Home({navigation}) {
       rating: '4,4',
       isLiked: false,
       image:
-      "https://www.pngmart.com/files/1/Shack-Burger-PNG.png",
+      "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-PNG-Clipart.png",
     },
     {
       key: 1,
@@ -461,41 +455,6 @@ export default function Home({navigation}) {
             </View>
           </TouchableOpacity>
           )}
-          {/* <FlatList
-            data={popular}
-            keyExtractor={(item) => item.key}
-            horizontal={false}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View style={styles.bestMain}>
-                <View style={{flex: 0.4}}>
-                  <Image
-                    style={{ width: 90, height: 90 }}
-                    source={{ uri: item.image }}
-                  />
-                </View>
-                <View
-                  style={{ justifyContent: "center", flex: 0.4 }}
-                >
-                  <Text style={{ textAlign: "left", fontWeight: "bold" }}>
-                    {item.title}
-                  </Text>
-                  <Text style={{ textAlign: "left" }}>{item.price}</Text>
-                </View>
-                <View style={{ justifyContent: "center" , alignItems: 'center' , flex: 0.2 }}>
-                  <View>
-                  <Icon name="heart" size={16} color={item.isLiked? "red" : "#D3D3D3"} />
-                  </View>
-                  <View style={{ flexDirection: "row" , marginVertical: 6 }}>
-                    <View>
-                      <Icon name="star-o" size={18} color="orange" />
-                    </View>
-                    <Text style={{ textAlign: "right", marginLeft: 5 }}>{item.rating}</Text>
-                  </View>
-                </View>
-              </View>
-            )}
-          /> */}
         </View>
       </ScrollView>
       <View style={{ flex: 0.1 }}>

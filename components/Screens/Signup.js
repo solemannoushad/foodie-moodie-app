@@ -5,8 +5,22 @@ import GetApiHook from '../Hooks/GetApiHook';
 import PostApiHook from "../Hooks/PostApiHook";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import {app} from "../../config";
+import { getDatabase, ref, onValue } from "firebase/database";
+
 
 export default function Signup({navigation}) {
+
+  useEffect(()=>{
+
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'users');
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+    
+  } , [])
 
   const [name , setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +29,7 @@ export default function Signup({navigation}) {
   const backClick = ()=>{
     navigation.goBack();
 }
+
   
   
   const signupPress = ()=>{
@@ -35,6 +50,7 @@ export default function Signup({navigation}) {
 
   return (
     <View style={styles.container}>
+      {console.log(data)}
       <View style={{ flex: 0.1, marginTop: 30, marginHorizontal: 30, flexDirection: 'row' , alignItems: 'center', }}>
         <TouchableOpacity onPress={backClick}>
           <Icon name="angle-left" size={34} color={"black"} />

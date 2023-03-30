@@ -1,7 +1,12 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../../styles/mainCss";
+import Buttons from "../Buttons/Buttons";
 
 export default function Login({navigation}) {
+
+  const loginClick = ()=>{
+    navigation.navigate("Home");
+  }
 
   return (
     <View style={styles.container}>
@@ -18,20 +23,14 @@ export default function Login({navigation}) {
       </View>
       <View style={{ flex: 0.8, marginHorizontal: 20 }}>
         <TextInput style={styles.inputField} placeholder="E-mail" />
-        <TextInput style={styles.inputField} placeholder="Password"/>
+        <TextInput secureTextEntry={true} style={styles.inputField} placeholder="Password"/>
         <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
           Forget Password?
         </Text>
         <View style={{ alignItems: "center" }}>
-          <TouchableOpacity 
-          onPress={()=>navigation.navigate("Home")} 
-            style={[
-              styles.Btn,
-              { backgroundColor: "#F44648", marginTop: 40, width: 300 },
-            ]}
-          >
-            <Text style={{ color: "white", textAlign: "center" }}>Login</Text>
-          </TouchableOpacity>
+          <View style={{marginTop: 40}}>
+            <Buttons title={"Login"} color={"#F44648"} clickFunction={loginClick} width={300}/>
+          </View>
           <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
             Or login with
           </Text>

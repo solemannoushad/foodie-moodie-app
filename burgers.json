@@ -1,0 +1,10 @@
+{
+    "burger1": {
+      "id": 1,
+      "name": "Zinger"
+    },
+    "burger2": {
+      "id": 2,
+      "name": "Grill"
+    }
+  }
