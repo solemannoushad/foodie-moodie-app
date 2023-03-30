@@ -2,9 +2,6 @@ import Front from './components/Screens/Front';
 import Login from './components/Screens/Login';
 import Signup from './components/Screens/Signup';
 import Details from './components/Screens/Details';
-import {NavigationContainer} from '@react-navigation/native';
-
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './components/Screens/Home';
 import Categories from './components/Screens/Categories';
 import Favourites from './components/Screens/Favourites';
@@ -12,6 +9,8 @@ import Cart from './components/Screens/Cart';
 import Profile from './components/Screens/Profile';
 import Menu from './components/Screens/Menu';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 export default function App() {

@@ -3,6 +3,8 @@ import { styles } from "../../styles/mainCss";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
+import Buttons from "../Buttons/Buttons";
+
 
 export default function Details({ navigation , route }) {
 
@@ -88,9 +90,7 @@ export default function Details({ navigation , route }) {
 
       {/* Button */}
       <View style={{flex: 0.2 , alignItems: 'center' , justifyContent: 'center'}}>
-        <TouchableOpacity style={[styles.Btn , {backgroundColor: '#F44648' , padding: 15 , width: 300 , fontSize: 20 , color: 'white'}]}>
-            <Text style={{color: "#ffffff" , textAlign: 'center'}}>Order Now</Text>
-        </TouchableOpacity>
+        <Buttons title={"Order Now"} width={300}/>
       </View>
     </View>
   );

@@ -29,7 +29,7 @@ export default function Login({navigation}) {
         </Text>
         <View style={{ alignItems: "center" }}>
           <View style={{marginTop: 40}}>
-            <Buttons title={"Login"} color={"#F44648"} clickFunction={loginClick} width={300}/>
+            <Buttons title={"Login"} clickFunction={loginClick} width={300}/>
           </View>
           <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
             Or login with

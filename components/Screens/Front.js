@@ -1,5 +1,7 @@
 import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import { styles } from "../../styles/mainCss";
+import Buttons from "../Buttons/Buttons";
+
 
 export default function Front({navigation}) {
 
@@ -18,12 +20,8 @@ export default function Front({navigation}) {
             <Text style={{color: 'white' , fontWeight: 'bold' , fontStyle: 'italic' , fontSize: 30}}>Enjoy your fast food only in Foodie Moodie</Text>
             <Text style={{color: 'white' , fontSize: 18, fontWeight: 600}}>Here is the place to buy food you want</Text>
             <View style={styles.btnView}>
-                <TouchableOpacity onPress={loginPress} style={[styles.Btn , {backgroundColor: '#F44648'}]}>
-                    <Text style={{color: 'white', textAlign: 'center' , fontSize: 18, fontWeight: 'bold'}}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity  onPress={signupPress} style={[styles.Btn , {borderColor: 'white' , borderWidth: 1}]}>
-                    <Text style={{color: 'white', textAlign: 'center' , fontSize: 18, fontWeight: 'bold'}}>Signup</Text>
-                </TouchableOpacity>
+                <Buttons title={"Login"} clickFunction={loginPress} additionalTextStyle={{fontSize: 18, fontWeight: 'bold'}}/>
+                <Buttons title={"Signup"} color={"transparent"} clickFunction={signupPress} additionalBtnStyle={{borderWidth: 1 , borderColor: 'white'}} additionalTextStyle={{fontSize: 18, fontWeight: 'bold'}}/>
             </View>
         </View>
       </ImageBackground>
