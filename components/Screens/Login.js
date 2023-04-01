@@ -7,6 +7,7 @@ import {auth} from "../../config";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from "react"; 
 import { StackActions } from "@react-navigation/native";
+import TextField from "../Text Fields/TextField";
 
 export default function Login({navigation}) {
 
@@ -16,11 +17,6 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState("");
 
   const loginClick = ()=>{
-    // StackActions.reset({
-    //   index: 0,
-      // actions: navigation.navigate("Home")
-      // actions: [StackActions.push({routeName: 'Details'})]
-    // });
     navigation.navigate("Home");
   }
 
@@ -29,7 +25,8 @@ export default function Login({navigation}) {
     await signInWithEmailAndPassword(auth, email,password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        
+        global.loggedIn = true;
+        global.loggedInUser = user.uid;
         navigation.navigate("Home" , {email});
       })
       .catch((error) => {
@@ -55,14 +52,14 @@ export default function Login({navigation}) {
         </View>
       </View>
       <View style={{ flex: 0.7, marginHorizontal: 20 }}>
-        <TextInput style={styles.inputField} placeholder="E-mail" value={email} onChangeText={(email)=>setEmail(email)} />
-        <TextInput secureTextEntry={true} style={styles.inputField} placeholder="Password" value={password} onChangeText={(password)=>setPassword(password)}/>
+        <TextField placeholder={"E-mail"} value={email} onChange={(email)=>setEmail(email)}/>
+        <TextField placeholder={"Password"} password={true} value={password} onChange={(password)=>setPassword(password)}/>
         <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
           Forget Password?
         </Text>
         <View style={{ alignItems: "center" }}>
           <View style={{marginTop: 40}}>
-            <Buttons title={"Login"} clickFunction={loginClick} width={300}/>
+            <Buttons title={"Login"} clickFunction={handleLogin} width={300}/>
           </View>
           <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
             Or login with

@@ -1,10 +1,10 @@
 import { useEffect , useState } from "react";
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Text, View } from "react-native";
 import { styles } from "../../styles/mainCss";
 import GetApiHook from '../Hooks/GetApiHook';
 import PostApiHook from "../Hooks/PostApiHook";
-import Icon from "react-native-vector-icons/FontAwesome";
 import Buttons from "../Buttons/Buttons";
+import CheckBox from 'react-native-check-box'
 
 import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
 
@@ -14,10 +14,15 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import Loading from "./Loading";
 import { Alert } from "react-native";
+import LabelTextField from "../Text Fields/LabelTextField";
+import BackButton from "../Buttons/BackButton";
+import { ScrollView } from "react-native";
 
 
 
 export default function Signup({navigation}) {
+
+  const [isChecked, setIsChecked] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -59,6 +64,7 @@ export default function Signup({navigation}) {
   const [name , setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
 
   const backClick = ()=>{
     navigation.goBack();
@@ -86,28 +92,32 @@ export default function Signup({navigation}) {
   return (
     <>
     {loading && <Loading loading={loading}/>}
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+    <View>
       {/* {console.log(data)} */}
       <View style={{ flex: 0.1, marginTop: 30, marginHorizontal: 30, flexDirection: 'row' , alignItems: 'center', }}>
-        <TouchableOpacity onPress={backClick}>
-          <Icon name="angle-left" size={34} color={"black"} />
-        </TouchableOpacity>
+        <BackButton/>
         <Text style={{ fontWeight: "bold", fontSize: 25, marginLeft: 10 }}>
           Signup
         </Text>
       </View>
       <View style={{ flex: 0.9, marginHorizontal: 20, marginTop: 20}}>
-        <Text style={styles.textLabel}>Email</Text>
-        <TextInput style={styles.inputField} placeholder="E-mail" value={email} onChangeText={(email)=>setEmail(email)}/>
-        <Text style={styles.textLabel}>Full Name</Text>
-        <TextInput style={styles.inputField} placeholder="Full Name" value={name} onChangeText={(name)=>setName(name)}/>
-        <Text style={styles.textLabel}>Password</Text>
-        <TextInput style={styles.inputField} placeholder="Create Password" value={password} onChangeText={(password)=>setPassword(password)} />
-        <Text style={styles.textLabel}>Confirm Password</Text>
-        <TextInput style={styles.inputField} placeholder="Confirm Password" />
-        <Text style={{color: "black", fontSize: 14, marginHorizontal: 20 }}>
-          I accept the <Text style={{fontWeight: 'bold'}}>Terms of Use</Text> and <Text style={{fontWeight: 'bold'}}>Privacy Policy</Text>
-        </Text>
+
+        <LabelTextField label={"Email"} placeholder="E-mail" value={email} onChange={(email)=>setEmail(email)}/>
+        <LabelTextField label={"Full Name"} placeholder="Name" value={name} onChange={(name)=>setName(name)}/>
+        <LabelTextField label={"Password"} password={true} placeholder="password" value={password} onChange={(password)=>setPassword(password)}/>
+        <LabelTextField label={"Confirm Password"} password={true} placeholder="Confirm Password" value={cpassword} onChange={(cpassword)=>setCpassword(cpassword)} />
+
+        <CheckBox
+            onClick={()=>{
+              setIsChecked(!isChecked)
+            }}
+            isChecked={isChecked}
+            checkedCheckBoxColor={"#F44648"}
+            rightText={<Text style={{color: "black", fontSize: 14, marginHorizontal: 20,}}>
+            I accept the <Text style={{fontWeight: 'bold'}}>Terms of Use</Text> and <Text style={{fontWeight: 'bold'}}>Privacy Policy</Text>
+          </Text>}
+        />
         <View style={{ alignItems: "center", paddingVertical: 30}}>
 
           <Buttons title={"Signup"} clickFunction={handleSignup} width={300}/>
@@ -120,6 +130,7 @@ export default function Signup({navigation}) {
       <Text >Already on foodie moodie? <Text onPress={()=> navigation.navigate('Login')} >Log in</Text></Text>
       </View>
     </View>
+    </ScrollView>
     </>
   );
 }

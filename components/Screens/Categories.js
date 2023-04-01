@@ -1,11 +1,12 @@
 import { Text } from "react-native";
 import { View, TouchableOpacity, FlatList, Image } from "react-native";
 import { styles } from "../../styles/mainCss";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import GetDbData from "../Hooks/GetDbData";
 import Loading from "./Loading";
+import BackButton from "../Buttons/BackButton";
+import HeaderBar from "../Headers/HeaderBar";
 
 
 export default function Categories({navigation , route}) {
@@ -27,9 +28,6 @@ export default function Categories({navigation , route}) {
       setLoading(!wait);
     } , [data])
 
-    const backClick = ()=>{
-        navigation.navigate("Home");
-    }
 
 
 
@@ -38,19 +36,7 @@ export default function Categories({navigation , route}) {
     <>
     {loading && <Loading loading={loading}/>}
     <View style={[styles.container, { paddingHorizontal: 20, paddingVertical: 10 }]}>
-        <View style={styles.detailsHeader}>
-            <View>
-                <TouchableOpacity onPress={backClick}>
-                    <Icon name="angle-left" size={34} color={"black"} />
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text style={{ fontSize: 18 }}>{title}</Text>
-            </View>
-            <View>
-            
-            </View>
-        </View>
+          <HeaderBar title={title}/>
 
         <ScrollView style={{flex: 0.9}} showsVerticalScrollIndicator={false}>            
             <View style={styles.productsMain}>

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     textLabel: {
         marginHorizontal: 20,
         fontSize: 15,
-        fontWeight: 'bold',
+        fontWeight: 500,
         letterSpacing: 1
     },
     menuMain: {

@@ -4,6 +4,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import Buttons from "../Buttons/Buttons";
+import BackButton from "../Buttons/BackButton";
+import HeaderBar from "../Headers/HeaderBar";
 
 
 export default function Details({ navigation , route }) {
@@ -11,10 +13,6 @@ export default function Details({ navigation , route }) {
     const [quantity, setQuantity] = useState(1);
 
     const {title , price , rating , isLiked , image} = route.params.item;
-    const backClick = ()=>{
-        // navigation.navigate("Home");
-        navigation.goBack();
-    }
 
     const addQty = ()=>{
       setQuantity(quantity + 1);
@@ -31,19 +29,8 @@ export default function Details({ navigation , route }) {
       style={[styles.container, { paddingHorizontal: 20, paddingVertical: 10 }]}
     >
       {/* Top Header */}
-      <View style={styles.detailsHeader}>
-        <View>
-          <TouchableOpacity onPress={backClick} style={{backgroundColor: 'white' , padding: 7 , borderRadius: 8, alignItems: 'center' , justifyContent: 'center'}}>
-            <Icon name="angle-left" size={34} color={"black"} />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={{ fontSize: 18 }}>Detail</Text>
-        </View>
-        <View style={{backgroundColor: 'white' , padding: 7 , borderRadius: 8, alignItems: 'center' , justifyContent: 'center'}}>
-          <Icon name={isLiked ? "heart" : "heart-o"} size={20} color={isLiked? "red" : "black"} />
-        </View>
-      </View>
+
+      <HeaderBar title={"Details"} icon={true} isLiked={isLiked}/>
 
       {/* Image View */}
       <View style={styles.detailsImage}>
