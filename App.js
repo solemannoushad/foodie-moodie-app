@@ -25,9 +25,9 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
         <Stack.Screen name="Details" component={Details} options={{headerShown: false}}/>
         <Stack.Screen name="Categories" component={Categories} options={{headerShown: false}}/>
-        <Stack.Screen name="Favourites" component={Favourites} options={{headerShown: false}}/>
-        <Stack.Screen name="Cart" component={Cart} options={{headerShown: false}}/>
-        <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+        <Stack.Screen name="Favourites" component={Favourites} options={{headerShown: false , animation: 'none'}}/>
+        <Stack.Screen name="Cart" component={Cart} options={{headerShown: false , animation: 'none'}}/>
+        <Stack.Screen name="Profile" component={Profile} options={{headerShown: false , animation: 'none'}}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import { styles } from "../../styles/mainCss";
 import Menu from "./Menu";
@@ -7,69 +7,33 @@ import ProductCardBox from "../Cards/ProductCardBox";
 import ProductCardList from "../Cards/ProductCardList";
 import CategoryCard from "../Cards/CategoryCard";
 import FlatlistsHeader from "../Headers/FlatlistsHeader";
+import GetDbData from "../Hooks/GetDbData";
+import Loading from "./Loading";
 
-export default function Home({navigation}) {
+export default function Home() {
 
-  const [categories, setCategories] = useState([
-    {
-      key: 0,
-      title: "Burger",
-      imgUrl:
-        "https://img.freepik.com/premium-vector/delicious-burger-icon-food-beverages_22052-1.jpg?w=1380",
-    },
-    {
-      key: 1,
-      title: "Kebab",
-      imgUrl:
-        "https://img.freepik.com/premium-vector/shawarma-chicken-wrap-paper-packaging-icon_202271-1082.jpg?w=1380",
-    },
-    {
-      key: 2,
-      title: "Fried",
-      imgUrl: "https://cdn-icons-png.flaticon.com/512/2884/2884642.png",
-    },
-  ]);
+  const [loading, setLoading] = useState(true);
 
-  const [popular, setPopular] = useState([
-    {
-      key: 0,
-      title: "Zinger Burger",
-      price: "$ 2.23",
-      rating: '4,4',
-      isLiked: false,
-      image:
-      "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-PNG-Clipart.png",
-    },
-    {
-      key: 1,
-      title: "Grill Burger",
-      price: "$ 3.23",
-      rating: '4,0',
-      isLiked: true,
-      image:
-        "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-Transparent-Background.png",
-    },
-    {
-      key: 2,
-      title: "Cheese Burger",
-      price: "$ 3.55",
-      rating: '3,4',
-      isLiked: true,
-      image:
-        "https://www.pngmart.com/files/16/Bacon-Cheese-Burger-Transparent-PNG.png",
-    },
-    {
-      key: 3,
-      title: "Monster Burger",
-      price: "$ 4.00",
-      rating: '5,0',
-      isLiked: false,
-      image:
-        "https://www.pngmart.com/files/5/Hamburger-PNG-File.png",
-    },
-  ]);
+  const [categories, setCategories] = useState([]);
+  const [popular, setPopular] = useState([]);
+  
+  const [func , data] = GetDbData("Food Categories");
+  const [func1 , data1, wait1] = GetDbData("Popular Food");
+  
+  useEffect( ()=>{
+    func();
+    setCategories(data);
+  } , [data])
 
+  useEffect( ()=>{
+    func1();
+    setPopular(data1);
+    setLoading(!wait1);
+  } , [data1])
+ 
   return (
+    <>
+    {loading && <Loading loading={loading}/>}
     <View style={styles.container}>
       <ScrollView
         style={styles.homeScrollMain}
@@ -126,5 +90,6 @@ export default function Home({navigation}) {
         <Menu highlight={"Home"}/>
       </View>
     </View>
+    </>
   );
 }

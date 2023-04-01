@@ -1,17 +1,50 @@
 import { useEffect , useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../../styles/mainCss";
 import GetApiHook from '../Hooks/GetApiHook';
 import PostApiHook from "../Hooks/PostApiHook";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Buttons from "../Buttons/Buttons";
 
+import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
 
-import {app} from "../../config";
+
+import {db , app , auth} from "../../config";
 import { getDatabase, ref, onValue } from "firebase/database";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import Loading from "./Loading";
+import { Alert } from "react-native";
+
 
 
 export default function Signup({navigation}) {
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    setLoading(true);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+
+        const user = userCredential.user;
+
+        addDoc(collection(db, "users"), {
+          uid: user.uid,
+          name: name,
+          email: email,
+          password: password
+        });
+
+        // navigation.navigate("Home" , {name})
+        Alert.alert("Signed Up Successfully");
+
+        
+      })
+      .catch((error) => {
+        Alert.alert("Invalid Credentials");
+      });
+      setLoading(false);
+  };
 
   useEffect(()=>{
 
@@ -19,7 +52,6 @@ export default function Signup({navigation}) {
     const dbRef = ref(db, 'users');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
-      // console.log(data);
     });
     
   } , [])
@@ -30,7 +62,7 @@ export default function Signup({navigation}) {
 
   const backClick = ()=>{
     navigation.goBack();
-}
+  }
 
   
   
@@ -52,6 +84,8 @@ export default function Signup({navigation}) {
   } , [])
 
   return (
+    <>
+    {loading && <Loading loading={loading}/>}
     <View style={styles.container}>
       {/* {console.log(data)} */}
       <View style={{ flex: 0.1, marginTop: 30, marginHorizontal: 30, flexDirection: 'row' , alignItems: 'center', }}>
@@ -76,7 +110,7 @@ export default function Signup({navigation}) {
         </Text>
         <View style={{ alignItems: "center", paddingVertical: 30}}>
 
-          <Buttons title={"Signup"} clickFunction={signupPress} width={300}/>
+          <Buttons title={"Signup"} clickFunction={handleSignup} width={300}/>
           <Text style={{ textAlign: "right", color: "black", fontSize: 12 }}>
             Or signup with
           </Text>
@@ -86,5 +120,6 @@ export default function Signup({navigation}) {
       <Text >Already on foodie moodie? <Text onPress={()=> navigation.navigate('Login')} >Log in</Text></Text>
       </View>
     </View>
+    </>
   );
 }
