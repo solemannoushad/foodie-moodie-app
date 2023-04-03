@@ -27,9 +27,9 @@ export default function LabelTextField(props) {
   );
 }
 
-// LabelTextField.defaultProps = {
-//   placeholder: "",
-//   value: "",
-//   onChange: () => {},
-//   password: false,
-// };
+LabelTextField.defaultProps = {
+  placeholder: "",
+  value: "",
+  onChange: () => {},
+  password: false,
+};

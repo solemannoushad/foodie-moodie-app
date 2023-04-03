@@ -42,6 +42,7 @@ export default function Home() {
         {/* Top Header */}
         <View style={{ flex: 0.1 }}>
           <Text style={{ marginVertical: 10, fontSize: 17, fontWeight: 400 }}>
+            {/* Hello Soleman Noushad! */}
             Hello {global.loggedInUser}!
           </Text>
           <Text style={{ fontSize: 25, fontWeight: 700 }}>

@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import GetDbData from "../Hooks/GetDbData";
 import Loading from "./Loading";
-import BackButton from "../Buttons/BackButton";
 import HeaderBar from "../Headers/HeaderBar";
 
 
@@ -41,7 +40,7 @@ export default function Categories({navigation , route}) {
         <ScrollView style={{flex: 0.9}} showsVerticalScrollIndicator={false}>            
             <View style={styles.productsMain}>
                 {products.map((item)=>
-                            <TouchableOpacity onPress={()=>productPress(item)} style={[styles.popularMain , {margin: 7}]}>
+                            <TouchableOpacity key={item.key} onPress={()=>productPress(item)} style={[styles.popularMain , {margin: 7}]}>
                           <View
                             style={{ alignItems: "center", justifyContent: "center" }}
                           >

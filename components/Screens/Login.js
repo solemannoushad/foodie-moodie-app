@@ -27,7 +27,7 @@ export default function Login({navigation}) {
         const user = userCredential.user;
         global.loggedIn = true;
         global.loggedInUser = user.uid;
-        navigation.navigate("Home" , {email});
+        navigation.navigate("Home");
       })
       .catch((error) => {
         setLoading(false);

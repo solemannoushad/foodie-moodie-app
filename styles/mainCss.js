@@ -17,11 +17,13 @@ const styles = StyleSheet.create({
     },
     frontMain: {
         flex: 0.4,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        position: 'absolute',
+        bottom: 10,
     },
     btnView: {
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 20,
     },
     inputField: {
         backgroundColor: 'white',

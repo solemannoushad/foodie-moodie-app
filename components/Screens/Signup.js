@@ -4,7 +4,6 @@ import { styles } from "../../styles/mainCss";
 import GetApiHook from '../Hooks/GetApiHook';
 import PostApiHook from "../Hooks/PostApiHook";
 import Buttons from "../Buttons/Buttons";
-import CheckBox from 'react-native-check-box'
 
 import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
 
@@ -108,16 +107,9 @@ export default function Signup({navigation}) {
         <LabelTextField label={"Password"} password={true} placeholder="password" value={password} onChange={(password)=>setPassword(password)}/>
         <LabelTextField label={"Confirm Password"} password={true} placeholder="Confirm Password" value={cpassword} onChange={(cpassword)=>setCpassword(cpassword)} />
 
-        <CheckBox
-            onClick={()=>{
-              setIsChecked(!isChecked)
-            }}
-            isChecked={isChecked}
-            checkedCheckBoxColor={"#F44648"}
-            rightText={<Text style={{color: "black", fontSize: 14, marginHorizontal: 20,}}>
+        <Text style={{color: "black", fontSize: 14, marginHorizontal: 20,}}>
             I accept the <Text style={{fontWeight: 'bold'}}>Terms of Use</Text> and <Text style={{fontWeight: 'bold'}}>Privacy Policy</Text>
-          </Text>}
-        />
+          </Text>
         <View style={{ alignItems: "center", paddingVertical: 30}}>
 
           <Buttons title={"Signup"} clickFunction={handleSignup} width={300}/>
