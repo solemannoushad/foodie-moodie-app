@@ -8,28 +8,66 @@ import ProductCardList from "../Cards/ProductCardList";
 import CategoryCard from "../Cards/CategoryCard";
 import FlatlistsHeader from "../Headers/FlatlistsHeader";
 import GetDbData from "../Hooks/GetDbData";
+import ComplexDb from "../Hooks/ComplexDb";
 import Loading from "./Loading";
+import {db} from '../../config'
+
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { doc, addDoc } from "firebase/firestore"; 
+
+
+
+
 
 export default function Home() {
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
 
   const [categories, setCategories] = useState([]);
   const [popular, setPopular] = useState([]);
   
   const [func , data] = GetDbData("Food Categories");
-  const [func1 , data1, wait1] = GetDbData("Popular Food");
-  
   useEffect( ()=>{
-    func();
-    setCategories(data);
-  } , [data])
-
+      func();
+      setCategories(data);
+    } , [])
+  
+    
+    const [func1 , data1, wait1] = ComplexDb("Popular Food");
   useEffect( ()=>{
     func1();
     setPopular(data1);
-    setLoading(!wait1);
-  } , [data1])
+    setLoading(wait1);
+  } , [])
+  
+  useEffect(()=>{
+    getUser();
+  } , [])
+
+  
+
+  
+  
+  const getUser = async ()=>{
+
+    const q = query(collection(db, "users"), where("uid", "==", global.loggedInUser));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setName(doc.data().name);
+    });
+  }
+
+  const favClick = async (key)=>{
+    
+    // await addDoc(doc(db, "Liked"), {
+    //   uid: global.loggedInUser,
+    //   productKkey: key,
+    //   productCat: "Burger"
+    // });
+    console.log("fav Clicked with key=> " + key);
+  }
  
   return (
     <>
@@ -42,8 +80,7 @@ export default function Home() {
         {/* Top Header */}
         <View style={{ flex: 0.1 }}>
           <Text style={{ marginVertical: 10, fontSize: 17, fontWeight: 400 }}>
-            {/* Hello Soleman Noushad! */}
-            Hello {global.loggedInUser}!
+            Hello {name}!
           </Text>
           <Text style={{ fontSize: 25, fontWeight: 700 }}>
             Choose your favourite food
@@ -76,7 +113,7 @@ export default function Home() {
           <FlatlistsHeader title={"Popular Food"}/>
         </View>
         <View style={styles.popularCard}>
-          <ProductCardBox data={{popular}}/>
+          <ProductCardBox data={{popular}} favClick={favClick}/>
         </View>
 
         {/* Best Seller Flatlist */}

@@ -2,6 +2,8 @@ import { Alert, Image, Text, TextInput, View } from "react-native";
 import { styles } from "../../styles/mainCss";
 import Buttons from "../Buttons/Buttons";
 import Loading from './Loading'
+import { CommonActions } from '@react-navigation/native';
+
 
 import {auth} from "../../config";
 import {signInWithEmailAndPassword} from "firebase/auth";
@@ -27,6 +29,16 @@ export default function Login({navigation}) {
         const user = userCredential.user;
         global.loggedIn = true;
         global.loggedInUser = user.uid;
+        
+
+        // navigation.dispatch(
+        //   CommonActions.reset({
+        //     index: 1,
+        //     routes: [
+        //       { name: 'Home' }
+        //     ],
+        //   })
+        // );
         navigation.navigate("Home");
       })
       .catch((error) => {

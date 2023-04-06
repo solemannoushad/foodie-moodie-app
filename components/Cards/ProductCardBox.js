@@ -2,11 +2,31 @@ import { View, FlatList, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "../../styles/mainCss";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from '@react-navigation/native';
-
+import { collection, query, where, getDocs } from "firebase/firestore";
+import {db} from '../../config'
+import { useEffect, useState } from "react";
 
 export default function ProductCardBox(props) {
 
+  const [liked, setLiked] = useState([]);
+
+  useEffect(async()=>{
+
+    let arr = [];
+    const q = query(collection(db, "Liked"), where("userId", "==", global.loggedInUser));
+  
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      arr.push(doc.data().productId);
+    });
+    setLiked(arr);
+    console.log("Liked Array=> " + liked);
+  } , [])
+
+
+
     const navigation = useNavigation();
+    const {favClick} = props;
 
     const detailsClick = (item)=>{
         navigation.navigate("Details" , {item});
@@ -30,8 +50,8 @@ export default function ProductCardBox(props) {
           </View>
           <View style={{ flex: 0.5 }}>
             <View style={{ alignItems: "flex-end" }}>
-              <TouchableOpacity>
-              <Icon name={item.isLiked ? "heart" : "heart-o"} size={20} color={item.isLiked? "red" : "black"} />
+              <TouchableOpacity onPress={()=>favClick(item.key)}>
+              <Icon name={liked.includes(item.key) ? "heart" : "heart-o"} size={20} color={liked.includes(item.key) ? "red" : "black"} />
               </TouchableOpacity>
             </View>
           </View>

@@ -18,10 +18,6 @@ export default function LabelTextField(props) {
       <Text style={styles.textLabel}>{label}</Text>
       <View style={{position: 'relative' , justifyContent: 'center'}}>
       <TextInput style={styles.inputField} secureTextEntry={pass} placeholder={placeholder} value={value} onChangeText={onChange}/>
-        {password && 
-        <Icon onPress={eyeClick} color={color} name={"eye"} style={{position: 'absolute' , right: 20}
-        }/>
-        }
       </View>
     </>
   );
