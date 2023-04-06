@@ -7,13 +7,13 @@ import ProductCardBox from "../Cards/ProductCardBox";
 import ProductCardList from "../Cards/ProductCardList";
 import CategoryCard from "../Cards/CategoryCard";
 import FlatlistsHeader from "../Headers/FlatlistsHeader";
-import GetDbData from "../Hooks/GetDbData";
-import ComplexDb from "../Hooks/ComplexDb";
 import Loading from "./Loading";
 import {db} from '../../config'
 
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, addDoc } from "firebase/firestore"; 
+import GetDbData from "../Hooks/GetDbData";
+import ComplexDb from "../Hooks/ComplexDb";
 
 
 
@@ -21,29 +21,33 @@ import { doc, addDoc } from "firebase/firestore";
 
 export default function Home() {
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
 
   const [categories, setCategories] = useState([]);
   const [popular, setPopular] = useState([]);
-  
-  const [func , data] = GetDbData("Food Categories");
-  useEffect( ()=>{
-      func();
-      setCategories(data);
-    } , [])
-  
-    
-    const [func1 , data1, wait1] = ComplexDb("Popular Food");
-  useEffect( ()=>{
-    func1();
-    setPopular(data1);
-    setLoading(wait1);
-  } , [])
+
+  const [cats] = GetDbData("Food Categories");
+  const [pops] = ComplexDb("Popular Food");
+
+
   
   useEffect(()=>{
     getUser();
   } , [])
+
+
+  useEffect(() => {
+    setCategories(cats);
+    setLoading(false);
+  } , [cats])
+
+  useEffect(() => {
+    setPopular(pops);
+    console.log(pops);
+  } , [pops])
+
+
 
   
 

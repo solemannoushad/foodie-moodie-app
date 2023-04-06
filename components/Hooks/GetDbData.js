@@ -1,44 +1,30 @@
 import {doc , getDocs , collection} from "firebase/firestore";
 import {db} from '../../config'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function GetDbData(dbName) {
 
   const [data, setData] = useState([]);
-  const [wait, setWait] = useState(false);
-  
-  const fetchDataFromDb = async ()=>{
-    
-    setWait(true);
+
+  useEffect(() => {
     const arr = [];
-    const arr1 = [];
-    
-    const colRef = collection(db, dbName);
-    const docsSnap = await getDocs(colRef);
-    docsSnap.forEach((doc)=>{
-      arr.push(doc.data());
-    })
-
-    // if(dbName !== "Food Categories"){
-    //   arr.forEach(async (doc)=>{
-    //     const colRef1 = collection(db, doc.productCat);
-    //     const docsSnap1 = await getDocs(colRef1);
-    //     docsSnap1.forEach((doc1)=>{
-    //       if(doc1.data().key === doc.productKey){
-    //         arr1.push(doc1.data());
-    //       }
-    //     })
-    //   })
-    //   setData(arr1);
-    // }else{
-    // }
-    
-    setData(arr)
-    setWait(false);
-
+    const fetchDataFromDb = async ()=>{
+  
+      const colRef = collection(db, dbName);
+      const docsSnap = await getDocs(colRef);
+      docsSnap.forEach(doc => {
+        arr.push(doc.data());
+      })
+  
+      
     }
+    fetchDataFromDb();
+    setData(arr);
+  } , [])
+
+
 
   return (
-    [fetchDataFromDb, data , wait]
+    [data]
   )
 }

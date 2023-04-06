@@ -1,40 +1,46 @@
 import {doc , getDocs , collection} from "firebase/firestore";
 import {db} from '../../config'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function GetDbData(dbName) {
 
-  const [data, setData] = useState([]);
-  const [wait, setWait] = useState(false);
-  
-  const fetchDataFromDb = async ()=>{
-    
-    setWait(true);
-    const arr = [];
-    const arr1 = [];
-    
-    const colRef = collection(db, dbName);
-    const docsSnap = await getDocs(colRef);
-    docsSnap.forEach((doc)=>{
-      arr.push(doc.data());
-    })
+  const [pop, setPop] = useState([]);
 
-      arr.forEach(async (doc)=>{
-        const colRef1 = collection(db, doc.productCat);
-        const docsSnap1 = await getDocs(colRef1);
-        docsSnap1.forEach((doc1)=>{
-          if(doc1.data().key === doc.productKey){
-            arr1.push(doc1.data());
+
+  useEffect(() => {
+    
+    let arr = [];
+    let arr1 = [];
+
+    const fetchComplex = async ()=>{
+      const colRef1 = collection(db , dbName);
+      const dataSnap1 = await getDocs(colRef1);
+      dataSnap1.forEach(doc => {
+        arr.push(doc.data());
+      })
+
+      arr.forEach(async(doc1) => {
+        const colRef2 = collection(db , doc1.productCat);
+        const dataSnap2 = await getDocs(colRef2);
+        dataSnap2.forEach((doc2) =>{
+          if(doc2.data().key === doc1.productKey){
+            console.log("object")
+            arr1.push(doc2.data());
+          }else{
+            console.log("else")
           }
         })
       })
-
-    setData(arr1)
-    setWait(false);
-
+      setPop(arr1);
     }
 
+    fetchComplex();
+
+  } , [])
+  
+  
+
   return (
-    [fetchDataFromDb, data , wait]
+    [pop]
   )
 }

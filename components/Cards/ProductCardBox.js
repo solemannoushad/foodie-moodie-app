@@ -10,17 +10,20 @@ export default function ProductCardBox(props) {
 
   const [liked, setLiked] = useState([]);
 
-  useEffect(async()=>{
+  useEffect(()=>{
 
-    let arr = [];
-    const q = query(collection(db, "Liked"), where("userId", "==", global.loggedInUser));
-  
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      arr.push(doc.data().productId);
-    });
-    setLiked(arr);
-    console.log("Liked Array=> " + liked);
+    const func = async ()=>{
+
+      let arr = [];
+      const q = query(collection(db, "Liked"), where("userId", "==", global.loggedInUser));
+    
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        arr.push(doc.data().productId);
+      });
+      setLiked(arr);
+    }
+    func();
   } , [])
 
 

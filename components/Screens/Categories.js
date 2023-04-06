@@ -19,10 +19,9 @@ export default function Categories({navigation , route}) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [func , data, wait] = GetDbData(title);
+    const [data, wait] = GetDbData(title);
 
     useEffect( ()=>{
-      func();
       setProducts(data);
       setLoading(!wait);
     } , [data])
