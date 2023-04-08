@@ -24,13 +24,12 @@ export default function Login({navigation}) {
 
   const handleLogin = async () => {
     setLoading(true);
-    await signInWithEmailAndPassword(auth, email,password)
+    await signInWithEmailAndPassword(auth, "new@gmail.com","admin1")
       .then(async (userCredential) => {
         const user = userCredential.user;
         global.loggedIn = true;
         global.loggedInUser = user.uid;
         
-
         // navigation.dispatch(
         //   CommonActions.reset({
         //     index: 1,
@@ -43,7 +42,7 @@ export default function Login({navigation}) {
       })
       .catch((error) => {
         setLoading(false);
-        Alert.alert("Invalid Cradentials");
+        Alert.alert(error);
       });
       setLoading(false);
   };

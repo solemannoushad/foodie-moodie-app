@@ -2,29 +2,35 @@ import {doc , getDocs , collection} from "firebase/firestore";
 import {db} from '../../config'
 import { useEffect, useState } from "react";
 
-export default function GetDbData(dbName) {
+export default function GetDbData(collectionName) {
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const arr = [];
-    const fetchDataFromDb = async ()=>{
+    
+    const fetchData = async ()=>{
+
+      setLoading(true);
   
-      const colRef = collection(db, dbName);
-      const docsSnap = await getDocs(colRef);
-      docsSnap.forEach(doc => {
-        arr.push(doc.data());
-      })
-  
+      const colRef = collection(db , collectionName);
+      const dataSnap = await getDocs(colRef);
       
+      const documents = [];
+      dataSnap.forEach(doc => {
+        documents.push(doc.data());
+      })
+      
+    setData(documents);
+    setLoading(false);
     }
-    fetchDataFromDb();
-    setData(arr);
-  } , [])
+
+    fetchData();
+
+  }, [collectionName]);
 
 
 
-  return (
-    [data]
-  )
+  return [ data, loading, error ];
 }

@@ -3,28 +3,31 @@ import { View, TouchableOpacity, FlatList, Image } from "react-native";
 import { styles } from "../../styles/mainCss";
 import { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
-import GetDbData from "../Hooks/GetDbData";
 import Loading from "./Loading";
 import HeaderBar from "../Headers/HeaderBar";
+import GetDbData from "../Hooks/GetDbData";
+
+import {getDocs , collection} from "firebase/firestore";
+import {db} from '../../config'
 
 
 export default function Categories({navigation , route}) {
 
-    const {title} = route.params.item;
+  const {title} = route.params.item;
+  const [products, setProducts] = useState([]);
+  // const [catData , wait1] = GetDbData(title);
+
+  const [ data, loading, error ] = GetDbData(title);
+
+  useEffect(() => {
+    setProducts(data);
+  } , [data])
+
 
     const productPress = (item)=>{
         navigation.navigate("Details" , {item});
     }
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    const [data, wait] = GetDbData(title);
-
-    useEffect( ()=>{
-      setProducts(data);
-      setLoading(!wait);
-    } , [data])
 
 
 

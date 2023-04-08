@@ -4,22 +4,27 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from '@react-navigation/native';
 
 
+
+
 export default function ProductCardList(props) {
 
+  const {best} = props.data;
+
+
     const navigation = useNavigation();
+
 
     const detailsClick = (item)=>{
         navigation.navigate("Details" , {item});
       }
 
-    const {popular} = props.data;
     
   return (
-        popular.map((item)=>
+    best.map((item)=>
         <TouchableOpacity onPress={()=>detailsClick(item)} key={item.key} style={styles.bestMain}>
         <View style={{flex: 0.4}}>
           <Image
-            style={{ width: 90, height: 90  ,  resizeMode: 'contain'}}
+            style={{ width: 100, height: 100  ,  resizeMode: 'contain'}}
             source={{ uri: item.image }}
           />
         </View>

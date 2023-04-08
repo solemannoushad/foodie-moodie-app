@@ -21,61 +21,48 @@ import ComplexDb from "../Hooks/ComplexDb";
 
 export default function Home() {
 
-  const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
-
   const [categories, setCategories] = useState([]);
   const [popular, setPopular] = useState([]);
-
-  const [cats] = GetDbData("Food Categories");
-  const [pops] = ComplexDb("Popular Food");
+  const [best, setBest] = useState([]);
 
 
+  const [ data , loading ] = GetDbData('Food Categories');
+  const {  data: data1 , loading: loading1 } = ComplexDb('Popular Food');
+  const {  data: data2 , loading: loading2 } = ComplexDb('Best Seller');
+
+  console.log(data2);
+
+  
+  useEffect(() => {
+    setCategories(data);
+    setPopular(data1);
+    setBest(data2);
+  } , [data , data1 , data2])
+  
+  
   
   useEffect(()=>{
     getUser();
   } , [])
 
-
-  useEffect(() => {
-    setCategories(cats);
-    setLoading(false);
-  } , [cats])
-
-  useEffect(() => {
-    setPopular(pops);
-    console.log(pops);
-  } , [pops])
-
-
-
-  
-
   
   
   const getUser = async ()=>{
-
+    
     const q = query(collection(db, "users"), where("uid", "==", global.loggedInUser));
-
+    
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setName(doc.data().name);
     });
   }
 
-  const favClick = async (key)=>{
-    
-    // await addDoc(doc(db, "Liked"), {
-    //   uid: global.loggedInUser,
-    //   productKkey: key,
-    //   productCat: "Burger"
-    // });
-    console.log("fav Clicked with key=> " + key);
-  }
- 
+  
+  
   return (
     <>
-    {loading && <Loading loading={loading}/>}
+    {(loading || loading1 || loading2) && <Loading loading={loading}/>}
     <View style={styles.container}>
       <ScrollView
         style={styles.homeScrollMain}
@@ -117,7 +104,7 @@ export default function Home() {
           <FlatlistsHeader title={"Popular Food"}/>
         </View>
         <View style={styles.popularCard}>
-          <ProductCardBox data={{popular}} favClick={favClick}/>
+          <ProductCardBox data={{popular}}/>
         </View>
 
         {/* Best Seller Flatlist */}
@@ -125,7 +112,7 @@ export default function Home() {
           <FlatlistsHeader title={"Best Seller"}/>
         </View>
         <View style={styles.bestSellerCard}>
-            <ProductCardList data={{popular}}/>
+            <ProductCardList data={{best}}/>
         </View>
       </ScrollView>
       <View style={{ flex: 0.1 }}>

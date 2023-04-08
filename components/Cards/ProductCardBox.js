@@ -29,7 +29,6 @@ export default function ProductCardBox(props) {
 
 
     const navigation = useNavigation();
-    const {favClick} = props;
 
     const detailsClick = (item)=>{
         navigation.navigate("Details" , {item});
@@ -53,7 +52,7 @@ export default function ProductCardBox(props) {
           </View>
           <View style={{ flex: 0.5 }}>
             <View style={{ alignItems: "flex-end" }}>
-              <TouchableOpacity onPress={()=>favClick(item.key)}>
+              <TouchableOpacity>
               <Icon name={liked.includes(item.key) ? "heart" : "heart-o"} size={20} color={liked.includes(item.key) ? "red" : "black"} />
               </TouchableOpacity>
             </View>
